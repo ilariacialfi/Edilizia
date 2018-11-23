@@ -3,7 +3,6 @@ package boundary;
 import java.io.IOException;
 import java.sql.SQLException;
 import control.ModelloController;
-import entity.AttrezzaturaStanza;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
