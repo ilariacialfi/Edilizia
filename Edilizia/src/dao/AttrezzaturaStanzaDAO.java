@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 import control.ControllerDB;
 import entity.Attrezzatura;
 import entity.AttrezzaturaStanza;
@@ -17,14 +18,10 @@ public class AttrezzaturaStanzaDAO {
 	private static final String STANZA_CON_ATTR = "SELECT nome, edificio, piano, tipo FROM attrezzatura_stanza JOIN stanza ON stanza = nome WHERE attrezzatura=? AND quantita>=? AND quantita<=?";
 	private static final String ELIMINA_STANZA = "DELETE FROM attrezzatura_stanza WHERE stanza = ?";
 	private static final String SALVA_STANZA = "INSERT INTO attrezzatura_stanza (stanza, attrezzatura, quantita) VALUES (?, ?, ?)";
-	private static final String UPDATE_ATTR_Q = "UPDATE attrezzatura_stanza SET attrezzatura = ?, quantita = ? WHERE stanza = ?";
-	private static final String UPDATE_Q = "UPDATE attrezzatura_stanza SET quantita = ? WHERE stanza = ? AND attrezzatura = ?";
-	private static final String CERCA_ST_ATTR = "SELECT stanza, attrezzatura FROM attrezzatura_stanza WHERE stanza = ? AND attrezzatura = ?";
-	
+	private static final String RINOMINA_STANZA = "UPDATE attrezzatura_stanza SET stanza = ? WHERE stanza = ?";
 	private static AttrezzaturaStanzaDAO instance = null;
 	private ResultSet rs = null;
 	private PreparedStatement pstmn = null;
-	private PreparedStatement pstmn2 = null;
 	
 	//SINGLETON
 	private AttrezzaturaStanzaDAO(){
@@ -103,7 +100,7 @@ public class AttrezzaturaStanzaDAO {
 			Connection conn = ControllerDB.getInstance().connect();
 			pstmn = conn.prepareStatement(ELIMINA_STANZA);
 			pstmn.setString(1, stanzaSel);
-			pstmn.executeUpdate();
+			pstmn.executeQuery();
 			
 		} catch (SQLException se) {
 			se.printStackTrace();
@@ -141,28 +138,19 @@ public class AttrezzaturaStanzaDAO {
 	public void aggiornaStanza(String stanza, ObservableList<AttrezzaturaStanza> attrSt) throws SQLException, ClassNotFoundException {
 		try {
 			Connection conn = ControllerDB.getInstance().connect();
-			pstmn = conn.prepareStatement(UPDATE_ATTR_Q);
-			pstmn2 = conn.prepareStatement(UPDATE_Q);
+			//prima elimino tutte le attrezzature della stanza
+			svuotaStanza(stanza);
+			//poi aggiungo quelle dell'interfaccia grafica
+			pstmn = conn.prepareStatement(SALVA_STANZA);
+			
 			
 			for (AttrezzaturaStanza attr : attrSt){
-				String a = attr.getAttr();
-				int q = attr.getQuantita();
+							
+				pstmn.setString(1, stanza);
+				pstmn.setString(2, attr.getAttr());
+				pstmn.setInt(3, attr.getQuantita());	
 				
-				//Se la chiave primaria stanza, attrezzatura è già presente (TRUE) modifico solo la quantita
-				if (controllaDuplicati(stanza, a) == true){
-					pstmn2.setInt(1, q);
-					pstmn2.setString(2, stanza);
-					pstmn2.setString(3, a);
-					
-					pstmn2.executeUpdate();
-				} else {
-					//se non è già presente modifico attrezzatura e quantita
-					pstmn.setString(1, attr.getAttr());
-					pstmn.setInt(2, attr.getQuantita());	
-					pstmn.setString(3, stanza);
-					
-					pstmn.executeUpdate();
-				}
+				pstmn.executeUpdate();
 			}
 			
 		} catch (SQLException se){
@@ -171,36 +159,46 @@ public class AttrezzaturaStanzaDAO {
 			if (! pstmn.isClosed()) {
 				pstmn.close();
 			}
-			if (! pstmn2.isClosed()) {
-				pstmn2.close();
-			}
 		}
 	}
 
-	private boolean controllaDuplicati(String stanza, String attr) throws SQLException, ClassNotFoundException {
+	private void svuotaStanza(String stanza) throws SQLException, ClassNotFoundException{
 		
 		try {
 			Connection conn = ControllerDB.getInstance().connect();
-			pstmn = conn.prepareStatement(CERCA_ST_ATTR);
+			pstmn = conn.prepareStatement(ELIMINA_STANZA);
 			pstmn.setString(1, stanza);
-			pstmn.setString(2, attr);
-			rs = pstmn.executeQuery();
 			
-			if (rs.next()){
-				return true;
-			}
+			pstmn.executeUpdate();
+	
 		
 		} catch (SQLException se) {
 			se.printStackTrace();
 		} finally {
-			if (! rs.isClosed()) {
-				rs.close();
-			}
 			if (! pstmn.isClosed()) {
 				pstmn.close();
 			}
 		}
-		return false;
+		return;
+	}
+
+	public void rinominaStanza(String prevName, String nextName) throws SQLException, ClassNotFoundException {
+		try {
+			Connection conn = ControllerDB.getInstance().connect();
+			pstmn = conn.prepareStatement(RINOMINA_STANZA);
+			pstmn.setString(1, nextName);
+			pstmn.setString(2, prevName);
+			
+			pstmn.executeUpdate();
+			
+		} catch (SQLException se){
+			se.printStackTrace();
+		} finally {
+			if (! pstmn.isClosed()){
+				pstmn.close();
+			}
+		}
+		return;
 	}
 
 	
