@@ -11,7 +11,8 @@ import javafx.collections.ObservableList;
 
 public class ModelloController {
 
-	public static ObservableList<AttrezzaturaModello> trovaModello(String modImp) throws ClassNotFoundException, SQLException {
+	public static ObservableList<AttrezzaturaModello> trovaModello(String modImp)
+			throws ClassNotFoundException, SQLException {
 		return FXCollections.observableArrayList(AttrezzaturaModelloDAO.getInstance().getModelloByName(modImp));
 	}
 
@@ -36,11 +37,13 @@ public class ModelloController {
 		AttrezzaturaModelloDAO.getInstance().eliminaModello(mod);
 	}
 
-	public static void aggiornaModello(String mod, ObservableList<String> attrMod) throws ClassNotFoundException, SQLException {
-		AttrezzaturaModelloDAO.getInstance().aggiornaModello(mod, attrMod);		
+	public static void aggiornaModello(String mod, ObservableList<String> attrMod)
+			throws ClassNotFoundException, SQLException {
+		AttrezzaturaModelloDAO.getInstance().aggiornaModello(mod, attrMod);
 	}
 
-	public static void salvaModello(String mod, ObservableList<String> attrMod) throws ClassNotFoundException, SQLException {
+	public static void salvaModello(String mod, ObservableList<String> attrMod)
+			throws ClassNotFoundException, SQLException {
 		AttrezzaturaModelloDAO.getInstance().salvaModello(mod, attrMod);
 	}
 

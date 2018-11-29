@@ -7,15 +7,25 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.LoginBoundary">
-   <children>
-      <TextField fx:id="tf_id" layoutX="75.0" layoutY="105.0" prefHeight="26.0" prefWidth="188.0" promptText="UserID" />
-      <PasswordField fx:id="pf_pass" layoutX="75.0" layoutY="174.0" prefHeight="26.0" prefWidth="188.0" promptText="Password" />
-      <Button fx:id="b_accedi" layoutX="157.0" layoutY="243.0" mnemonicParsing="false" onAction="#doAccess" prefHeight="26.0" prefWidth="106.0" text="Accedi" />
-      <Label layoutX="338.0" layoutY="61.0" lineSpacing="20.0" prefHeight="271.0" prefWidth="252.0" text="Gestisci le risorse della tua macroarea universitaria" wrapText="true">
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
-      </Label>
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
+	minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+	prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="boundary.LoginBoundary">
+	<children>
+		<TextField fx:id="tf_id" layoutX="75.0" layoutY="105.0"
+			prefHeight="26.0" prefWidth="188.0" promptText="UserID" />
+		<PasswordField fx:id="pf_pass" layoutX="75.0" layoutY="174.0"
+			prefHeight="26.0" prefWidth="188.0" promptText="Password" />
+		<Button fx:id="b_accedi" layoutX="157.0" layoutY="243.0"
+			mnemonicParsing="false" onAction="#doAccess" prefHeight="26.0"
+			prefWidth="106.0" text="Accedi" />
+		<Label layoutX="338.0" layoutY="61.0" lineSpacing="20.0"
+			prefHeight="271.0" prefWidth="252.0"
+			text="Gestisci le risorse della tua macroarea universitaria"
+			wrapText="true">
+			<font>
+				<Font name="System Bold" size="24.0" />
+			</font>
+		</Label>
+	</children>
 </AnchorPane>

@@ -11,16 +11,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class CercaController {
-	
-	public static ObservableList<String> estraiAttrezzatura() throws ClassNotFoundException, SQLException{
+
+	public static ObservableList<String> estraiAttrezzatura() throws ClassNotFoundException, SQLException {
 		return FXCollections.observableArrayList(AttrezzaturaDAO.getInstance().getAttrezzatura());
 	}
-	
-	public static Attrezzatura addRowAttr(String attr, int min, int max){
+
+	public static Attrezzatura addRowAttr(String attr, int min, int max) {
 		return new Attrezzatura(attr, min, max);
 	}
 
-	public static ObservableList<Stanza> cercaStanze(ObservableList<Attrezzatura> listAttr) throws ClassNotFoundException, SQLException {
+	public static ObservableList<Stanza> cercaStanze(ObservableList<Attrezzatura> listAttr)
+			throws ClassNotFoundException, SQLException {
 		return FXCollections.observableArrayList(AttrezzaturaStanzaDAO.getInstance().getStanzaConAttr(listAttr));
 	}
 

@@ -3,7 +3,6 @@ package boundary;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Collections;
-
 import control.ModelloController;
 import control.StanzaController;
 import entity.AttrezzaturaModello;
@@ -134,7 +133,8 @@ public class StanzaBoundary {
 		tv_attr.getColumns().clear();
 		tc_attr.setCellValueFactory(new PropertyValueFactory<AttrezzaturaStanza, String>("attr"));
 		tc_quantita.setCellValueFactory(new PropertyValueFactory<AttrezzaturaStanza, Integer>("quantita"));
-		//ci sono problemi perchè e colonne hanno elementi di tipo diverso, ma non crea problemi nell'uso dell'applicazione
+		// ci sono problemi perchè e colonne hanno elementi di tipo diverso, ma
+		// non crea problemi nell'uso dell'applicazione
 		tv_attr.getColumns().addAll(tc_attr, tc_quantita);
 
 		// inizializzo lo Spinner
@@ -419,19 +419,19 @@ public class StanzaBoundary {
 				alert.setContentText("Una stanza con questo nome già esiste");
 				alert.showAndWait();
 				return;
-			} else if (prevName == nextName){
+			} else if (prevName == nextName) {
 				b_okRin.setVisible(false);
 				return;
 			}
 			StanzaController.rinominaStanza(prevName, nextName);
-			
+
 			// modifico la combobox riordinandola
 			cb_stanza.setSelectionModel(null);
 			ObservableList<String> items = StanzaController.estraiStanza();
 			Collections.sort(items);
 			cb_stanza.getItems().addAll(items);
 			cb_stanza.getItems().add("Crea nuova stanza");
-			
+
 			b_okRin.setVisible(false);
 			tf_nome.setDisable(true);
 			return;

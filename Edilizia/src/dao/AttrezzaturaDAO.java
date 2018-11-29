@@ -10,49 +10,49 @@ import control.ControllerDB;
 import entity.Attrezzatura;
 
 public class AttrezzaturaDAO {
-	
+
 	private static final String ESTRAI_ATTREZZATURA = "SELECT nome FROM attrezzatura ORDER BY nome";
-	
+
 	private static AttrezzaturaDAO instance = null;
 	private Statement stmn = null;
 	private ResultSet rs = null;
-	
-	//SINGLETON
-	private AttrezzaturaDAO(){
+
+	// SINGLETON
+	private AttrezzaturaDAO() {
 	}
-	
-	public static AttrezzaturaDAO getInstance(){
-		if (instance == null){
+
+	public static AttrezzaturaDAO getInstance() {
+		if (instance == null) {
 			instance = new AttrezzaturaDAO();
 		}
 		return instance;
 	}
-	
-	//creo una observable list dal db
-	public ArrayList<String> getAttrezzatura() throws SQLException, ClassNotFoundException{
+
+	// creo una observable list dal db
+	public ArrayList<String> getAttrezzatura() throws SQLException, ClassNotFoundException {
 		ArrayList<String> listAttr = null;
-		
-		try{
+
+		try {
 			Connection conn = ControllerDB.getInstance().connect();
 			stmn = conn.createStatement();
 			rs = stmn.executeQuery(ESTRAI_ATTREZZATURA);
-			
+
 			listAttr = new ArrayList<String>();
-			while(rs.next()){
-				listAttr.add(new Attrezzatura(rs.getString("nome"),0,0).getNome());
+			while (rs.next()) {
+				listAttr.add(new Attrezzatura(rs.getString("nome"), 0, 0).getNome());
 			}
-		} catch (SQLException se){
+		} catch (SQLException se) {
 			se.printStackTrace();
 		} finally {
-			if (! rs.isClosed()){
+			if (!rs.isClosed()) {
 				rs.close();
 			}
-			if (! stmn.isClosed()){
+			if (!stmn.isClosed()) {
 				stmn.close();
 			}
 		}
-		
+
 		return listAttr;
 	}
-	
+
 }
