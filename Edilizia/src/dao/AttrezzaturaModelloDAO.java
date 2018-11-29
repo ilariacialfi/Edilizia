@@ -14,8 +14,9 @@ public class AttrezzaturaModelloDAO {
 	private static final String TROVA_MOD_ATTR = "SELECT * FROM attrezzatura_modello WHERE modello = ?";
 	private static final String ELIMINA_MODELLO = "DELETE FROM attrezzatura_modello WHERE modello = ?";
 	private static final String UPDATE_MODELLO = "UPDATE attrezzatura_modello SET attrezzatura = ? WHERE modello = ?";
-	private static final String SALVA_MODELLO = "INSERTO INTO attrezzatura_modello (modello, attrezzatura) VALUES (?, ?)";
-
+	private static final String SALVA_MODELLO = "INSERT INTO attrezzatura_modello (modello, attrezzatura) VALUES (?, ?)";
+	private static final String RINOMINA_MODELLO = "UPDATE attrezzatura_modello SET modello = ? WHERE modello = ?";
+	
 	private static AttrezzaturaModelloDAO instance = null;
 	private ResultSet rs = null;
 	private PreparedStatement pstmn = null;
@@ -142,5 +143,24 @@ public class AttrezzaturaModelloDAO {
 				pstmn.close();
 			}
 		}
+	}
+
+	public void rinominaModello(String prevName, String nextName) throws ClassNotFoundException, SQLException {
+		try {
+			Connection conn = ControllerDB.getInstance().connect();
+			pstmn = conn.prepareStatement(RINOMINA_MODELLO);
+			pstmn.setString(1, nextName);
+			pstmn.setString(2, prevName);
+
+			pstmn.executeUpdate();
+
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} finally {
+			if (!pstmn.isClosed()) {
+				pstmn.close();
+			}
+		}
+		return;
 	}
 }

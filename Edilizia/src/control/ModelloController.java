@@ -47,4 +47,10 @@ public class ModelloController {
 		AttrezzaturaModelloDAO.getInstance().salvaModello(mod, attrMod);
 	}
 
+	public static void rinominaModello(String prevName, String nextName) throws ClassNotFoundException, SQLException {
+		AttrezzaturaModelloDAO.getInstance().rinominaModello(prevName, nextName);
+		ModelloDAO.getInstance().rinominaModello(prevName, nextName);
+		return;
+	}
+
 }

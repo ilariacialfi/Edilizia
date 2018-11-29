@@ -8,79 +8,38 @@
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
-	minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0"
-	prefWidth="900.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="boundary.ModelloBoundary">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.ModelloBoundary">
 	<children>
-		<SplitPane dividerPositions="0.30904522613065327" layoutX="200.0"
-			layoutY="52.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0"
-			AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-			AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+		<SplitPane dividerPositions="0.30904522613065327" layoutX="200.0" layoutY="52.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<items>
-				<AnchorPane prefHeight="171.0" prefWidth="598.0"
-					SplitPane.resizableWithParent="false">
+				<AnchorPane prefHeight="171.0" prefWidth="598.0" SplitPane.resizableWithParent="false">
 					<children>
-						<ComboBox fx:id="cb_attr" layoutX="13.0" layoutY="85.0"
-							prefHeight="26.0" prefWidth="164.0" promptText="Seleziona attrezzatura"
-							AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="130.0" />
-						<Button fx:id="b_add" layoutX="200.0" layoutY="120.0"
-							mnemonicParsing="false" onAction="#addAttrezzatura" prefHeight="26.0"
-							prefWidth="126.0" text="Aggiungi" AnchorPane.leftAnchor="230.0"
-							AnchorPane.topAnchor="130.0" />
-						<ComboBox fx:id="cb_modello" layoutX="20.0" layoutY="71.0"
-							prefHeight="26.0" prefWidth="164.0" promptText="Seleziona modello"
-							AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="80.0" />
-						<Button fx:id="b_rinom" layoutX="286.0" layoutY="47.0"
-							mnemonicParsing="false" onAction="#rinominaModello" prefHeight="26.0"
-							prefWidth="126.0" text="Rinomina" AnchorPane.leftAnchor="380.0"
-							AnchorPane.topAnchor="80.0" />
-						<Button fx:id="b_crea" layoutX="230.0" layoutY="29.0"
-							mnemonicParsing="false" onAction="#creaModello" prefHeight="26.0"
-							prefWidth="125.0" text="Crea Nuovo" AnchorPane.leftAnchor="230.0"
-							AnchorPane.topAnchor="30.0" />
-						<Button fx:id="b_elimina" layoutX="482.0" layoutY="47.0"
-							mnemonicParsing="false" onAction="#eliminaModello" prefHeight="26.0"
-							prefWidth="126.0" style="-fx-background-color: #e26161;" text="Elimina Modello"
-							AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="70.0" />
-						<Button fx:id="b_importa" layoutX="230.0" layoutY="72.0"
-							mnemonicParsing="false" onAction="#importaModello" prefHeight="26.0"
-							prefWidth="126.0" text="Importa" AnchorPane.leftAnchor="230.0"
-							AnchorPane.topAnchor="80.0" />
-						<TextField fx:id="tf_nome" layoutX="20.0" layoutY="30.0"
-							prefHeight="26.0" prefWidth="164.0" promptText="Nome Modello"
-							AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="30.0" />
+						<ComboBox fx:id="cb_attr" layoutX="13.0" layoutY="85.0" prefHeight="26.0" prefWidth="164.0" promptText="Seleziona attrezzatura" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="130.0" />
+						<Button fx:id="b_add" layoutX="200.0" layoutY="120.0" mnemonicParsing="false" onAction="#addAttrezzatura" prefHeight="26.0" prefWidth="126.0" text="Aggiungi" AnchorPane.leftAnchor="230.0" AnchorPane.topAnchor="130.0" />
+						<ComboBox fx:id="cb_modello" layoutX="20.0" layoutY="71.0" prefHeight="26.0" prefWidth="164.0" promptText="Seleziona modello" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="80.0" />
+						<Button fx:id="b_rinom" layoutX="230.0" layoutY="80.0" mnemonicParsing="false" onAction="#rinominaModello" prefHeight="26.0" prefWidth="126.0" text="Rinomina" AnchorPane.leftAnchor="230.0" AnchorPane.topAnchor="80.0" />
+						<Button fx:id="b_crea" layoutX="230.0" layoutY="29.0" mnemonicParsing="false" onAction="#creaModello" prefHeight="26.0" prefWidth="125.0" text="Crea" AnchorPane.leftAnchor="230.0" AnchorPane.topAnchor="30.0" />
+						<Button fx:id="b_elimina" layoutX="482.0" layoutY="47.0" mnemonicParsing="false" onAction="#eliminaModello" prefHeight="26.0" prefWidth="126.0" style="-fx-background-color: #e26161;" text="Elimina Modello" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="70.0" />
+						<TextField fx:id="tf_nome" layoutX="20.0" layoutY="30.0" prefHeight="26.0" prefWidth="164.0" promptText="Nome Modello" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="30.0" />
+                  <Button fx:id="b_okRin" layoutX="230.0" layoutY="31.0" mnemonicParsing="false" onAction="#okRinomina" text="OK" AnchorPane.leftAnchor="230.0" AnchorPane.topAnchor="30.0" />
 					</children>
 				</AnchorPane>
 				<SplitPane dividerPositions="0.8038101604278075">
 					<items>
 						<AnchorPane>
 							<children>
-								<TitledPane prefHeight="327.2" prefWidth="510.4"
-									text="Attrezzatura" AnchorPane.bottomAnchor="0.0"
-									AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-									AnchorPane.topAnchor="0.0">
+								<TitledPane prefHeight="327.2" prefWidth="510.4" text="Attrezzatura" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 									<content>
-										<ListView fx:id="lv_attr" prefHeight="272.0"
-											prefWidth="296.0" />
+										<ListView fx:id="lv_attr" prefHeight="272.0" prefWidth="296.0" />
 									</content>
 								</TitledPane>
 							</children>
 						</AnchorPane>
 						<AnchorPane prefHeight="200.0" prefWidth="200.0">
 							<children>
-								<Button fx:id="b_salva" layoutX="21.0" layoutY="194.0"
-									mnemonicParsing="false" onAction="#salvaModello" prefHeight="26.0"
-									prefWidth="126.0" style="-fx-background-color: #2c76df;" text="Salva/Crea"
-									AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="20.0" />
-								<Button fx:id="b_elAttr" layoutX="23.0" layoutY="25.0"
-									mnemonicParsing="false" onAction="#eliminaAttrezzatura"
-									prefHeight="26.0" prefWidth="126.0" text="Elimina"
-									AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
-								<Button fx:id="b_back" layoutX="22.0" layoutY="233.0"
-									mnemonicParsing="false" onAction="#tornaIndietro" prefHeight="26.0"
-									prefWidth="126.0" text="indietro" AnchorPane.bottomAnchor="20.0"
-									AnchorPane.leftAnchor="20.0" />
+								<Button fx:id="b_salva" layoutX="21.0" layoutY="194.0" mnemonicParsing="false" onAction="#salvaModello" prefHeight="26.0" prefWidth="126.0" style="-fx-background-color: #2c76df;" text="Salva/Crea" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="20.0" />
+								<Button fx:id="b_elAttr" layoutX="23.0" layoutY="25.0" mnemonicParsing="false" onAction="#eliminaAttrezzatura" prefHeight="26.0" prefWidth="126.0" text="Elimina" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
+								<Button fx:id="b_back" layoutX="22.0" layoutY="233.0" mnemonicParsing="false" onAction="#tornaIndietro" prefHeight="26.0" prefWidth="126.0" text="indietro" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" />
 							</children>
 						</AnchorPane>
 					</items>

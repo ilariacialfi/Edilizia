@@ -1,7 +1,10 @@
 package boundary;
 
+import java.awt.Desktop.Action;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Collections;
+
 import control.ModelloController;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,6 +29,9 @@ public class ModelloBoundary {
 	private Button b_add;
 
 	@FXML
+	private Button b_okRin;
+
+	@FXML
 	private ComboBox<String> cb_modello;
 
 	@FXML
@@ -36,9 +42,6 @@ public class ModelloBoundary {
 
 	@FXML
 	private Button b_elimina;
-
-	@FXML
-	private Button b_importa;
 
 	@FXML
 	private TextField tf_nome;
@@ -58,15 +61,25 @@ public class ModelloBoundary {
 	@FXML
 	public void initialize() throws ClassNotFoundException, SQLException {
 		cb_attr.setItems(ModelloController.estraiAttrezzatura());
-		cb_modello.setItems(ModelloController.estraiModelli());
+
+		cb_modello.setSelectionModel(null);
+		ObservableList<String> items = ModelloController.estraiModelli();
+		Collections.sort(items);
+		cb_modello.getItems().addAll(items);
+		cb_modello.getItems().add("Crea nuovo modello");
 
 		lv_attr.getItems().clear();
 
-		b_elAttr.setDisable(true);
-		cb_attr.setDisable(true);
-		b_add.setDisable(true);
-		b_rinom.setDisable(true);
-		b_salva.setDisable(true);
+		tf_nome.setVisible(false);
+		b_crea.setVisible(false);
+		b_elAttr.setVisible(false);
+
+		b_elAttr.setVisible(false);
+		cb_attr.setVisible(false);
+		b_add.setVisible(false);
+		b_rinom.setVisible(false);
+		b_salva.setVisible(false);
+		b_okRin.setVisible(false);
 
 	}
 
@@ -92,12 +105,11 @@ public class ModelloBoundary {
 			return;
 		} else {
 			tf_nome.setDisable(true);
-			cb_modello.setDisable(true);
-			b_importa.setDisable(true);
-			b_elimina.setDisable(false);
-			b_rinom.setDisable(false);
-			cb_attr.setDisable(false);
-			b_add.setDisable(false);
+			cb_modello.setVisible(false);
+			b_elimina.setVisible(true);
+			b_rinom.setVisible(true);
+			cb_attr.setVisible(true);
+			b_add.setVisible(true);
 		}
 	}
 
@@ -121,13 +133,12 @@ public class ModelloBoundary {
 		tf_nome.setText(mod);
 		tf_nome.setDisable(true);
 		lv_attr.refresh();
-		b_importa.setDisable(true);
-		cb_modello.setDisable(true);
-		b_crea.setDisable(true);
+		cb_modello.setVisible(false);
+		b_crea.setVisible(false);
 
-		cb_attr.setDisable(false);
-		b_add.setDisable(false);
-		b_rinom.setDisable(false);
+		cb_attr.setVisible(true);
+		b_add.setVisible(true);
+		b_rinom.setVisible(true);
 
 	}
 
@@ -156,9 +167,9 @@ public class ModelloBoundary {
 		lv_attr.getItems().add(cb_attr.getValue());
 		lv_attr.refresh();
 
-		b_elAttr.setDisable(false);
-		b_rinom.setDisable(false);
-		b_salva.setDisable(false);
+		b_elAttr.setVisible(true);
+		b_rinom.setVisible(true);
+		b_salva.setVisible(true);
 	}
 
 	@FXML
@@ -167,8 +178,8 @@ public class ModelloBoundary {
 		if (attr != null) {
 			lv_attr.getItems().remove(attr);
 			if (lv_attr.getItems().size() == 0) {
-				b_elAttr.setDisable(true);
-				b_salva.setDisable(true);
+				b_elAttr.setVisible(false);
+				b_salva.setVisible(false);
 			}
 		} else {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -195,20 +206,52 @@ public class ModelloBoundary {
 			alert.showAndWait();
 
 			tf_nome.setDisable(false);
-			b_crea.setDisable(false);
-			cb_modello.setDisable(false);
-			b_importa.setDisable(false);
+			b_crea.setVisible(true);
+			cb_modello.setVisible(true);
 
-			b_elimina.setDisable(true);
-			cb_attr.setDisable(true);
-			b_add.setDisable(true);
-			b_salva.setDisable(true);
+			b_elimina.setVisible(false);
+			cb_attr.setVisible(false);
+			b_add.setVisible(false);
+			b_salva.setVisible(false);
 		}
 	}
 
 	@FXML
 	void rinominaModello(ActionEvent event) {
-		// trovare un modo per rinominare anche per le stanze
+		b_rinom.setVisible(false);
+		b_crea.setVisible(false);
+
+		tf_nome.setDisable(false);
+	}
+
+	@FXML
+	void okRinomina(ActionEvent event) throws ClassNotFoundException, SQLException {
+		String prevName = cb_modello.getSelectionModel().getSelectedItem();
+		String nextName = tf_nome.getText();
+
+		for (String modello : cb_modello.getItems()) {
+			if (modello.equals(nextName)) {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Errore");
+				alert.setHeaderText("Scelta non valida");
+				alert.setContentText("Un modello con questo nome già esiste");
+				alert.showAndWait();
+				return;
+			} else if (prevName == nextName) {
+				b_okRin.setVisible(false);
+				return;
+			}
+			ModelloController.rinominaModello(prevName, nextName);
+
+			cb_modello.setSelectionModel(null);
+			ObservableList<String> items = ModelloController.estraiModelli();
+			Collections.sort(items);
+			cb_modello.getItems().addAll(items);
+
+			b_okRin.setVisible(false);
+			tf_nome.setVisible(false);
+			return;
+		}
 	}
 
 	@FXML

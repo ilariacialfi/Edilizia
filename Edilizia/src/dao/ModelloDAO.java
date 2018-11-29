@@ -13,7 +13,8 @@ public class ModelloDAO {
 
 	private static final String ESTRAI_MODELLI = "SELECT DISTINCT modello FROM attrezzatura_modello ORDER BY modello";
 	private static final String CERCA_MODELLO = "SELECT modello FROM attrezzatura_modello WHERE modello = ?";
-
+	private static final String RINOMINA_MODELLO = "UPDATE modello SET nome = ? WHERE nome = ?";
+	
 	private static ModelloDAO instance = null;
 	private ResultSet rs = null;
 	private Statement stmn = null;
@@ -77,6 +78,25 @@ public class ModelloDAO {
 			}
 		}
 		return false;
+	}
+
+	public void rinominaModello(String prevName, String nextName) throws ClassNotFoundException, SQLException {
+		try {
+			Connection conn = ControllerDB.getInstance().connect();
+			pstmn = conn.prepareStatement(RINOMINA_MODELLO);
+			pstmn.setString(1, nextName);
+			pstmn.setString(2, prevName);
+
+			pstmn.executeUpdate();
+
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} finally {
+			if (!pstmn.isClosed()) {
+				pstmn.close();
+			}
+		}
+		return;
 	}
 
 }
