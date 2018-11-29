@@ -23,11 +23,11 @@
                               <ComboBox fx:id="cb_attr" layoutX="14.0" layoutY="24.0" prefHeight="26.0" prefWidth="284.0" promptText="Scegli Attrezzatura" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="79.0" AnchorPane.topAnchor="30.0" />
                               <Label layoutX="20.0" layoutY="64.0" text="Min" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="84.0" />
                               <Label layoutX="177.0" layoutY="84.0" text="Max" AnchorPane.leftAnchor="177.0" AnchorPane.topAnchor="84.0" />
-                              <Spinner fx:id="sp_max" layoutX="212.0" layoutY="80.0" prefHeight="26.0" prefWidth="94.0" AnchorPane.leftAnchor="212.0" AnchorPane.topAnchor="80.0" />
                               <Spinner fx:id="sp_min" layoutX="54.0" layoutY="58.0" prefHeight="26.0" prefWidth="93.0" AnchorPane.leftAnchor="55.0" AnchorPane.topAnchor="80.0" />
-                              <Button fx:id="b_cerca" layoutX="249.0" layoutY="139.0" mnemonicParsing="false" onAction="#cercaStanze" prefHeight="26.0" prefWidth="58.0" style="-fx-background-color: #48c97a;" text="Cerca" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="130.0" />
-                              <Button fx:id="b_del" layoutX="156.0" layoutY="130.0" mnemonicParsing="false" onAction="#eliminaAttrezzatura" prefHeight="26.0" prefWidth="114.0" text="Elimina" AnchorPane.leftAnchor="156.0" AnchorPane.rightAnchor="113.0" AnchorPane.topAnchor="130.0" />
+                              <Spinner fx:id="sp_max" layoutX="212.0" layoutY="80.0" prefHeight="26.0" prefWidth="94.0" AnchorPane.leftAnchor="212.0" AnchorPane.topAnchor="80.0" />
                               <Button fx:id="b_addAttr" layoutX="29.0" layoutY="97.0" mnemonicParsing="false" onAction="#aggiungiAttrezzatura" prefHeight="26.0" prefWidth="114.0" text="Aggiungi" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="249.0" AnchorPane.topAnchor="130.0" />
+                              <Button fx:id="b_del" layoutX="156.0" layoutY="130.0" mnemonicParsing="false" onAction="#eliminaAttrezzatura" prefHeight="26.0" prefWidth="114.0" text="Elimina" AnchorPane.leftAnchor="156.0" AnchorPane.rightAnchor="113.0" AnchorPane.topAnchor="130.0" />
+                              <Button fx:id="b_cerca" layoutX="249.0" layoutY="139.0" mnemonicParsing="false" onAction="#cercaStanze" prefHeight="26.0" prefWidth="58.0" style="-fx-background-color: #48c97a;" text="Cerca" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="130.0" />
                            </children>
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
@@ -85,9 +85,9 @@
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" SplitPane.resizableWithParent="false">
                            <children>
-                              <Button fx:id="b_creaModello" layoutX="665.0" layoutY="10.0" mnemonicParsing="false" onAction="#creaModello" prefHeight="26.0" prefWidth="195.0" text="Crea/Modifica Modello" AnchorPane.rightAnchor="40.0" />
-                              <Button fx:id="b_creaStanza" layoutX="434.0" layoutY="10.0" mnemonicParsing="false" onAction="#creaStanza" prefHeight="26.0" prefWidth="195.0" text="Crea/Modifica Stanza" AnchorPane.rightAnchor="270.0" />
                               <Button fx:id="b_exit" layoutX="26.0" layoutY="10.0" mnemonicParsing="false" onAction="#exit" prefHeight="26.0" prefWidth="70.0" style="-fx-background-color: #e26161;" text="Esci" AnchorPane.leftAnchor="26.0" />
+                              <Button fx:id="b_creaStanza" layoutX="434.0" layoutY="10.0" mnemonicParsing="false" onAction="#creaStanza" prefHeight="26.0" prefWidth="195.0" text="Crea/Modifica Stanza" AnchorPane.rightAnchor="270.0" />
+                              <Button fx:id="b_creaModello" layoutX="665.0" layoutY="10.0" mnemonicParsing="false" onAction="#creaModello" prefHeight="26.0" prefWidth="195.0" text="Crea/Modifica Modello" AnchorPane.rightAnchor="40.0" />
                            </children>
                         </AnchorPane>
                     </items>

@@ -16,6 +16,7 @@ public class StanzaDAO {
 	private static final String STANZA_CON_NOME = "SELECT nome, edificio, piano, tipo FROM stanza WHERE nome = ?";
 	private static final String ELIMINA_STANZA = "DELETE FROM stanza WHERE nome = ?";
 	private static final String SALVA_STANZA = "INSERT INTO stanza (nome, edificio, piano, tipo) VALUES (?, ?, ?, ?) ";
+	private static final String RINOMINA_STANZA = "UPDATE stanza SET nome = ? WHERE nome = ?";
 	
 	private static StanzaDAO instance = null;
 	private ResultSet rs = null;
@@ -151,6 +152,26 @@ public class StanzaDAO {
 			}
 		}
 	}
+
+	public void rinominaStanza(String prevName, String nextName) throws SQLException, ClassNotFoundException {
+		try {
+			Connection conn = ControllerDB.getInstance().connect();
+			pstmn = conn.prepareStatement(RINOMINA_STANZA);
+			pstmn.setString(1, nextName);
+			pstmn.setString(2, prevName);
+			
+			pstmn.executeUpdate();
+			
+		} catch (SQLException se){
+			se.printStackTrace();
+		} finally {
+			if (! pstmn.isClosed()){
+				pstmn.close();
+			}
+		}
+		return;
+	}
+
 	
 }
 			

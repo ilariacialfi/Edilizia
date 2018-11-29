@@ -11,25 +11,28 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.StanzaBoundary">
    <children>
-      <SplitPane dividerPositions="0.27793696275071633" layoutX="200.0" layoutY="52.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.3151862464183381" layoutX="200.0" layoutY="52.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane prefHeight="171.0" prefWidth="598.0" SplitPane.resizableWithParent="false">
                <children>
-                  <ComboBox fx:id="cb_attr" layoutX="13.0" layoutY="85.0" prefHeight="26.0" prefWidth="232.0" promptText="Seleziona Attrezzatura" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="140.0" />
-                  <Button fx:id="b_add" layoutX="372.0" layoutY="140.0" mnemonicParsing="false" onAction="#addAttrezzatura" prefHeight="26.0" prefWidth="94.0" text="Aggiungi" AnchorPane.leftAnchor="372.0" AnchorPane.topAnchor="140.0" />
-                  <Button fx:id="b_modQuantita" layoutX="482.0" layoutY="140.0" mnemonicParsing="false" onAction="#cambiaQuantita" text="Salva Modifica" />
-                  <ComboBox fx:id="cb_stanza" layoutX="13.0" layoutY="47.0" prefHeight="26.0" prefWidth="232.0" promptText="Seleziona Stanza" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="60.0" />
-                  <Button fx:id="b_impSt" layoutX="278.0" layoutY="60.0" mnemonicParsing="false" onAction="#importaStanza" prefHeight="26.0" prefWidth="188.0" text="Importa Stanza" />
-                  <Button fx:id="b_rinom" layoutX="648.0" layoutY="100.0" mnemonicParsing="false" onAction="#rinominaStanza" prefHeight="26.0" prefWidth="188.0" text="Rinomina" AnchorPane.leftAnchor="648.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="100.0" />
-                  <Button fx:id="b_crea" layoutX="20.0" layoutY="14.0" mnemonicParsing="false" onAction="#creaStanza" prefHeight="26.0" prefWidth="178.0" text="Crea Nuova" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
-                  <Button fx:id="b_elimina" layoutX="648.0" layoutY="60.0" mnemonicParsing="false" onAction="#eliminaStanza" prefHeight="26.0" prefWidth="188.0" style="-fx-background-color: #e26161;" text="Elimina Stanza" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="60.0" />
-                  <Spinner fx:id="sp_quantita" layoutX="277.0" layoutY="130.0" prefHeight="26.0" prefWidth="84.0" AnchorPane.leftAnchor="277.0" AnchorPane.topAnchor="140.0" />
+                  <ComboBox fx:id="cb_stanza" layoutX="20.0" layoutY="21.0" onAction="#importaStanza" prefHeight="26.0" prefWidth="232.0" promptText="Seleziona Stanza" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="21.0" />
+                  <TextField fx:id="tf_nome" layoutX="20.0" layoutY="60.0" prefHeight="26.0" prefWidth="159.0" promptText="nome" AnchorPane.topAnchor="60.0" />
+                  <ComboBox fx:id="cb_edificio" layoutX="210.0" layoutY="61.0" prefHeight="26.0" prefWidth="108.0" promptText="edificio" />
+                  <ComboBox fx:id="cb_piano" layoutX="357.0" layoutY="62.0" prefHeight="26.0" prefWidth="108.0" promptText="piano" />
+                  <ComboBox fx:id="cb_tipo" layoutX="492.0" layoutY="62.0" prefHeight="26.0" prefWidth="144.0" promptText="tipo" AnchorPane.rightAnchor="270.0" AnchorPane.topAnchor="62.0" />
+                  <Button fx:id="b_crea" layoutX="649.0" layoutY="62.0" mnemonicParsing="false" onAction="#creaStanza" prefHeight="26.0" prefWidth="188.0" text="Crea" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="62.0" />
+                  <Button fx:id="b_elimina" layoutX="650.0" layoutY="62.0" mnemonicParsing="false" onAction="#eliminaStanza" prefHeight="26.0" prefWidth="188.0" style="-fx-background-color: #e26161;" text="Elimina Stanza" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="62.0" />
                   <ComboBox fx:id="cb_modello" layoutX="19.0" layoutY="92.0" prefHeight="26.0" prefWidth="232.0" promptText="Seleziona Modello" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="100.0" />
                   <Button fx:id="b_impMod" layoutX="277.0" layoutY="90.0" mnemonicParsing="false" onAction="#importaModello" prefHeight="26.0" prefWidth="188.0" text="Importa Modello" AnchorPane.leftAnchor="277.0" AnchorPane.topAnchor="100.0" />
-                  <TextField fx:id="tf_nome" layoutX="222.0" layoutY="20.0" prefHeight="26.0" prefWidth="159.0" promptText="nome" AnchorPane.topAnchor="20.0" />
-                  <ComboBox fx:id="cb_edificio" layoutX="412.0" layoutY="21.0" prefHeight="26.0" prefWidth="108.0" promptText="edificio" />
-                  <ComboBox fx:id="cb_piano" layoutX="551.0" layoutY="21.0" prefHeight="26.0" prefWidth="108.0" promptText="piano" />
-                  <ComboBox fx:id="cb_tipo" layoutX="692.0" layoutY="22.0" prefHeight="26.0" prefWidth="144.0" promptText="tipo" AnchorPane.rightAnchor="60.0" />
+                  <Button fx:id="b_okRin" layoutX="485.0" layoutY="101.0" mnemonicParsing="false" onAction="#okRinomina" prefHeight="26.0" prefWidth="144.0" text="Ok" />
+                  <Button fx:id="b_rinom" layoutX="649.0" layoutY="100.0" mnemonicParsing="false" onAction="#rinominaStanza" prefHeight="26.0" prefWidth="188.0" text="Rinomina" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="100.0" />
+                  <ComboBox fx:id="cb_attr" layoutX="13.0"
+	layoutY="85.0" onAction="#azzeraParametri" prefHeight="26.0" prefWidth="232.0"
+	promptText="Seleziona Attrezzatura" AnchorPane.bottomAnchor="20.0"
+	AnchorPane.leftAnchor="20.0" />
+                  <Spinner fx:id="sp_quantita" layoutX="277.0" layoutY="130.0" prefHeight="26.0" prefWidth="84.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="277.0" />
+                  <Button fx:id="b_add" layoutX="372.0" layoutY="140.0" mnemonicParsing="false" onAction="#addAttrezzatura" prefHeight="26.0" prefWidth="94.0" text="Aggiungi" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="372.0" />
+                  <Button fx:id="b_modQuantita" layoutX="482.0" layoutY="140.0" mnemonicParsing="false" onAction="#cambiaQuantita" text="Cambia Q.tà" AnchorPane.bottomAnchor="20.0" />
                </children>
             </AnchorPane>
             <SplitPane dividerPositions="0.7858414959928762" SplitPane.resizableWithParent="false">
@@ -46,8 +49,8 @@
                   </AnchorPane>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="b_salva" layoutX="21.0" layoutY="194.0" mnemonicParsing="false" onAction="#salvaStanza" prefHeight="26.0" prefWidth="108.0" style="-fx-background-color: #2c76df;" text="Salva/Crea" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="20.0" />
                         <Button fx:id="b_elAttr" layoutX="23.0" layoutY="25.0" mnemonicParsing="false" onAction="#eliminaAttrezzatura" prefHeight="26.0" prefWidth="108.0" text="Elimina" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
+                        <Button fx:id="b_salva" layoutX="21.0" layoutY="194.0" mnemonicParsing="false" onAction="#salvaStanza" prefHeight="26.0" prefWidth="108.0" style="-fx-background-color: #2c76df;" text="Salva/Crea" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="20.0" />
                         <Button fx:id="b_back" layoutX="22.0" layoutY="233.0" mnemonicParsing="false" onAction="#tornaIndietro" prefHeight="26.0" prefWidth="108.0" text="indietro" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
                      </children>
                   </AnchorPane>
