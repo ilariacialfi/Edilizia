@@ -140,49 +140,11 @@ public class AttrezzaturaStanzaDAO {
 	}
 
 	public void aggiornaStanza(String stanza, ObservableList<AttrezzaturaStanza> attrSt)
-			throws SQLException, ClassNotFoundException {
-		try {
-			Connection conn = ControllerDB.getInstance().connect();
-			// prima elimino tutte le attrezzature della stanza
-			svuotaStanza(stanza);
-			// poi aggiungo quelle dell'interfaccia grafica
-			pstmn = conn.prepareStatement(SALVA_STANZA);
-
-			for (AttrezzaturaStanza attr : attrSt) {
-
-				pstmn.setString(1, stanza);
-				pstmn.setString(2, attr.getAttr());
-				pstmn.setInt(3, attr.getQuantita());
-
-				pstmn.executeUpdate();
-			}
-
-		} catch (SQLException se) {
-			se.printStackTrace();
-		} finally {
-			if (!pstmn.isClosed()) {
-				pstmn.close();
-			}
-		}
-	}
-
-	private void svuotaStanza(String stanza) throws SQLException, ClassNotFoundException {
-
-		try {
-			Connection conn = ControllerDB.getInstance().connect();
-			pstmn = conn.prepareStatement(ELIMINA_STANZA);
-			pstmn.setString(1, stanza);
-
-			pstmn.executeUpdate();
-
-		} catch (SQLException se) {
-			se.printStackTrace();
-		} finally {
-			if (!pstmn.isClosed()) {
-				pstmn.close();
-			}
-		}
-		return;
+			throws ClassNotFoundException, SQLException {
+		// prima elimino tutte le attrezzature della stanza
+		eliminaStanza(stanza);
+		// poi aggiungo quelle dell'interfaccia grafica
+		salvaStanza(stanza, attrSt);
 	}
 
 	public void rinominaStanza(String prevName, String nextName) throws SQLException, ClassNotFoundException {

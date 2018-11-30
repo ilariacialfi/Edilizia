@@ -1,10 +1,8 @@
 package boundary;
 
-import java.awt.Desktop.Action;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Collections;
-
 import control.ModelloController;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -62,7 +60,8 @@ public class ModelloBoundary {
 	public void initialize() throws ClassNotFoundException, SQLException {
 		cb_attr.setItems(ModelloController.estraiAttrezzatura());
 
-		cb_modello.setSelectionModel(null);
+		// ordino la combobox dei modelli
+		cb_modello.getItems().clear();
 		ObservableList<String> items = ModelloController.estraiModelli();
 		Collections.sort(items);
 		cb_modello.getItems().addAll(items);
@@ -70,32 +69,81 @@ public class ModelloBoundary {
 
 		lv_attr.getItems().clear();
 
+		// nascondo pulsanti e oggetti che non possono essere usati
 		tf_nome.setVisible(false);
 		b_crea.setVisible(false);
-		b_elAttr.setVisible(false);
-
+		b_okRin.setVisible(false);
+		b_rinom.setVisible(false);
+		b_elimina.setVisible(false);
 		b_elAttr.setVisible(false);
 		cb_attr.setVisible(false);
 		b_add.setVisible(false);
-		b_rinom.setVisible(false);
 		b_salva.setVisible(false);
-		b_okRin.setVisible(false);
 
 	}
 
 	@FXML
-	void creaModello(ActionEvent event) throws ClassNotFoundException, SQLException {
+	protected void importaModello(ActionEvent event) throws ClassNotFoundException, SQLException {
+
+		String mod = cb_modello.getValue();
+		lv_attr.getItems().clear();
+
+		// pulisco il campo nome che potrebbe già essere compilato
+		tf_nome.setVisible(true);
+		tf_nome.clear();
+
+		// campi che devono essere sempre invisibili ad una nuova selezione
+		b_okRin.setVisible(false);
+		b_elAttr.setVisible(false);
+		b_salva.setVisible(false);
+
+		if (mod == "Crea nuovo modello") {
+
+			b_crea.setVisible(true);
+			tf_nome.setVisible(true);
+			tf_nome.setDisable(false);
+
+			b_rinom.setVisible(false);
+			cb_attr.setVisible(false);
+			b_add.setVisible(false);
+			b_elimina.setVisible(false);
+
+			return;
+
+		} else {
+			ObservableList<String> listAttr = ModelloController.estraiAttr(mod);
+			for (String a : listAttr) {
+				lv_attr.getItems().add(a);
+			}
+			lv_attr.refresh();
+
+			tf_nome.setDisable(true);
+			tf_nome.setText(mod);
+
+			b_crea.setVisible(false);
+
+			cb_attr.setVisible(true);
+			b_add.setVisible(true);
+			b_rinom.setVisible(true);
+			b_elimina.setVisible(true);
+		}
+
+	}
+
+	@FXML
+	protected void creaModello(ActionEvent event) throws ClassNotFoundException, SQLException {
+
 		String mod = tf_nome.getText();
+
 		if (mod == null) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Errore");
 			alert.setHeaderText("Scelta non valida");
 			alert.setContentText("E' necessario inserire il nome del modello");
-			;
 			alert.showAndWait();
 			return;
 		}
-		// se esiste un modello con questo nome mando l'alert
+		// (TRUE) il modello già esiste
 		if (ModelloController.cercaModello(mod) == true) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Errore");
@@ -103,47 +151,19 @@ public class ModelloBoundary {
 			alert.setContentText("Un modello con questo nome già esiste");
 			alert.showAndWait();
 			return;
+			// (FALSE) il modello non esiste
 		} else {
 			tf_nome.setDisable(true);
-			cb_modello.setVisible(false);
-			b_elimina.setVisible(true);
-			b_rinom.setVisible(true);
+
+			b_crea.setVisible(false);
+
 			cb_attr.setVisible(true);
 			b_add.setVisible(true);
 		}
 	}
 
 	@FXML
-	void importaModello(ActionEvent event) throws ClassNotFoundException, SQLException {
-		String mod = cb_modello.getSelectionModel().getSelectedItem();
-		lv_attr.getItems().clear();
-
-		if (mod == null) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Errore");
-			alert.setHeaderText("Scelta non valida");
-			alert.setContentText("E' necessario selezionare un modello!");
-			alert.showAndWait();
-			return;
-		}
-		ObservableList<String> listAttr = ModelloController.estraiAttr(mod);
-		for (String a : listAttr) {
-			lv_attr.getItems().add(a);
-		}
-		tf_nome.setText(mod);
-		tf_nome.setDisable(true);
-		lv_attr.refresh();
-		cb_modello.setVisible(false);
-		b_crea.setVisible(false);
-
-		cb_attr.setVisible(true);
-		b_add.setVisible(true);
-		b_rinom.setVisible(true);
-
-	}
-
-	@FXML
-	void addAttrezzatura(ActionEvent event) {
+	protected void addAttrezzatura(ActionEvent event) {
 
 		if (cb_attr.getValue() == null) {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -168,12 +188,11 @@ public class ModelloBoundary {
 		lv_attr.refresh();
 
 		b_elAttr.setVisible(true);
-		b_rinom.setVisible(true);
 		b_salva.setVisible(true);
 	}
 
 	@FXML
-	void eliminaAttrezzatura(ActionEvent event) {
+	protected void eliminaAttrezzatura(ActionEvent event) {
 		String attr = lv_attr.getSelectionModel().getSelectedItem();
 		if (attr != null) {
 			lv_attr.getItems().remove(attr);
@@ -185,19 +204,19 @@ public class ModelloBoundary {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Errore");
 			alert.setHeaderText("Elemento non selezionato");
-			alert.setContentText("Nessun modello è stato selezionato!");
+			alert.setContentText("Nessun elemento è stato selezionato!");
 			alert.showAndWait();
 			return;
 		}
 	}
 
 	@FXML
-	void eliminaModello(ActionEvent event) throws ClassNotFoundException, SQLException {
+	protected void eliminaModello(ActionEvent event) throws ClassNotFoundException, SQLException {
 		String mod = tf_nome.getText();
 		if (mod != null) {
 			ModelloController.eliminaModello(mod);
 			cb_modello.setItems(ModelloController.estraiModelli());
-			;
+			cb_modello.getItems().add("Crea nuovo modello");
 
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle("Conferma");
@@ -217,45 +236,56 @@ public class ModelloBoundary {
 	}
 
 	@FXML
-	void rinominaModello(ActionEvent event) {
+	protected void rinominaModello(ActionEvent event) {
 		b_rinom.setVisible(false);
 		b_crea.setVisible(false);
 
 		tf_nome.setDisable(false);
+
+		b_okRin.setVisible(true);
 	}
 
 	@FXML
-	void okRinomina(ActionEvent event) throws ClassNotFoundException, SQLException {
-		String prevName = cb_modello.getSelectionModel().getSelectedItem();
+	protected void okRinomina(ActionEvent event) throws ClassNotFoundException, SQLException {
+		String prevName = cb_modello.getValue();
 		String nextName = tf_nome.getText();
 
-		for (String modello : cb_modello.getItems()) {
-			if (modello.equals(nextName)) {
+		if (nextName.equals(prevName)) {
+			b_okRin.setVisible(false);
+			b_rinom.setVisible(true);
+			tf_nome.setDisable(true);
+			return;
+		}
+		for (String modello : ModelloController.estraiModelli()) {
+			if (nextName.equals(modello)) {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Errore");
 				alert.setHeaderText("Scelta non valida");
 				alert.setContentText("Un modello con questo nome già esiste");
 				alert.showAndWait();
 				return;
-			} else if (prevName == nextName) {
-				b_okRin.setVisible(false);
-				return;
 			}
-			ModelloController.rinominaModello(prevName, nextName);
-
-			cb_modello.setSelectionModel(null);
-			ObservableList<String> items = ModelloController.estraiModelli();
-			Collections.sort(items);
-			cb_modello.getItems().addAll(items);
-
-			b_okRin.setVisible(false);
-			tf_nome.setVisible(false);
-			return;
 		}
+
+		ModelloController.rinominaModello(prevName, nextName);
+
+		cb_modello.getItems().clear();
+		ObservableList<String> items = ModelloController.estraiModelli();
+		Collections.sort(items);
+		cb_modello.getItems().addAll(items);
+		cb_modello.getItems().add("Crea nuovo modello");
+		cb_modello.setValue(nextName);
+
+		b_okRin.setVisible(false);
+		tf_nome.setDisable(true);
+		b_rinom.setVisible(true);
+		b_salva.setVisible(true);
+		return;
+
 	}
 
 	@FXML
-	void salvaModello(ActionEvent event) throws ClassNotFoundException, SQLException {
+	protected void salvaModello(ActionEvent event) throws ClassNotFoundException, SQLException {
 		ObservableList<String> attr = lv_attr.getItems();
 		String mod = tf_nome.getText();
 
@@ -267,7 +297,7 @@ public class ModelloBoundary {
 			alert.showAndWait();
 			return;
 		} else {
-			// controllo se il modello già esiste (TRUE)
+			// (TRUE) se il modello già esiste
 			if (ModelloController.cercaModello(mod) == true) {
 				ModelloController.aggiornaModello(mod, attr);
 
@@ -277,7 +307,7 @@ public class ModelloBoundary {
 				alert.setHeaderText("Update effettuato.");
 				alert.setContentText("Modello aggiornato con successo!");
 				alert.showAndWait();
-				initialize();
+
 				return;
 			} else {
 				ModelloController.salvaModello(mod, attr);
@@ -287,7 +317,13 @@ public class ModelloBoundary {
 				alert.setHeaderText("Salvataggio effettuato.");
 				alert.setContentText("Modello salvato con successo!");
 				alert.showAndWait();
-				initialize();
+
+				cb_modello.getItems().clear();
+				ObservableList<String> items = ModelloController.estraiModelli();
+				Collections.sort(items);
+				cb_modello.setItems(items);
+				cb_modello.getItems().add("Crea nuovo modello");
+
 				return;
 			}
 		}

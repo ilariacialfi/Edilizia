@@ -110,7 +110,7 @@ public class StanzaBoundary {
 		cb_piano.getItems().addAll("T", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
 		cb_tipo.getItems().addAll("aula", "ufficio", "laboratorio");
 
-		// disabilito tutte le aree che non possono essere usate prima di
+		// nascondo tutte le aree che non possono essere usate prima di
 		// scegliere se creare o modificare un modello
 		b_add.setVisible(false);
 		b_elAttr.setVisible(false);
@@ -181,13 +181,13 @@ public class StanzaBoundary {
 		if (cb_stanza.getValue() == "Crea nuova stanza") {
 			// rendo visibile il pulsante crea con cui vado a fare il controllo
 			b_crea.setVisible(true);
-			b_crea.setDisable(false);
 
 			return;
 		} else {
 			// Prendo i dati della stanza dal DB
 			Stanza st = StanzaController.trovaStanza(stanzaImp);
 			// Mostro i dati della stanza presi dal db nei campi
+			// QUANDO RINOMINO LA STANZA MI DA ERRORE SU QUESTA RIGA MA FUNZIONA
 			tf_nome.setText(st.getNome());
 			cb_edificio.setValue(st.getEdificio());
 			cb_piano.setValue(st.getPiano());
@@ -237,8 +237,7 @@ public class StanzaBoundary {
 			alert.showAndWait();
 			return;
 		}
-		// se il risultato è true la stanza ricercata NON ESISTE già e può
-		// essere creata
+		// (TRUE) la stanza non esiste
 		if (StanzaController.cercaStanza(nomeStanza) == true) {
 			// nascondo alcuni campi
 			b_crea.setVisible(false);
@@ -256,6 +255,7 @@ public class StanzaBoundary {
 			sp_quantita.setVisible(true);
 			b_rinom.setVisible(true);
 			return;
+			// (FALSE) la stanza è già esistente
 		} else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Errore");
@@ -408,35 +408,42 @@ public class StanzaBoundary {
 
 	@FXML
 	protected void okRinomina(ActionEvent event) throws ClassNotFoundException, SQLException {
-		String prevName = cb_stanza.getSelectionModel().getSelectedItem();
+		String prevName = cb_stanza.getValue();
 		String nextName = tf_nome.getText();
 
+		if (prevName == nextName) {
+			b_okRin.setVisible(false);
+			b_rinom.setVisible(true);
+			tf_nome.setDisable(true);
+			return;
+		}
 		for (String stanza : cb_stanza.getItems()) {
-			if (stanza.equals(nextName)) {
+			if (nextName.equals(stanza)) {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Errore");
 				alert.setHeaderText("Scelta non valida");
 				alert.setContentText("Una stanza con questo nome già esiste");
 				alert.showAndWait();
 				return;
-			} else if (prevName == nextName) {
-				b_okRin.setVisible(false);
-				return;
 			}
-			StanzaController.rinominaStanza(prevName, nextName);
-
-			// modifico la combobox riordinandola
-			cb_stanza.setSelectionModel(null);
-			ObservableList<String> items = StanzaController.estraiStanza();
-			Collections.sort(items);
-			cb_stanza.getItems().addAll(items);
-			cb_stanza.getItems().add("Crea nuova stanza");
-
-			b_okRin.setVisible(false);
-			tf_nome.setDisable(true);
-			return;
-
 		}
+		StanzaController.rinominaStanza(prevName, nextName);
+
+		// modifico la combobox riordinandola
+		cb_stanza.getItems().clear();
+		ObservableList<String> items = StanzaController.estraiStanza();
+		Collections.sort(items);
+		cb_stanza.getItems().addAll(items);
+		cb_stanza.getItems().add("Crea nuova stanza");
+		cb_stanza.setValue(nextName);
+		importaStanza(event);
+
+		b_okRin.setVisible(false);
+		tf_nome.setDisable(true);
+		b_rinom.setVisible(true);
+		b_salva.setVisible(true);
+		return;
+
 	}
 
 	@FXML

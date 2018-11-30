@@ -13,10 +13,9 @@ public class AttrezzaturaModelloDAO {
 
 	private static final String TROVA_MOD_ATTR = "SELECT * FROM attrezzatura_modello WHERE modello = ?";
 	private static final String ELIMINA_MODELLO = "DELETE FROM attrezzatura_modello WHERE modello = ?";
-	private static final String UPDATE_MODELLO = "UPDATE attrezzatura_modello SET attrezzatura = ? WHERE modello = ?";
 	private static final String SALVA_MODELLO = "INSERT INTO attrezzatura_modello (modello, attrezzatura) VALUES (?, ?)";
 	private static final String RINOMINA_MODELLO = "UPDATE attrezzatura_modello SET modello = ? WHERE modello = ?";
-	
+
 	private static AttrezzaturaModelloDAO instance = null;
 	private ResultSet rs = null;
 	private PreparedStatement pstmn = null;
@@ -101,28 +100,13 @@ public class AttrezzaturaModelloDAO {
 
 	}
 
-	// ATTENZIONE QUERY SBAGLIATA DEVO DARE LA LISTA DI ATTRIBUTI CONTROLLA
-	// ANCHE STANZA
-	public synchronized void aggiornaModello(String mod, ObservableList<String> attrMod)
+	public void aggiornaModello(String mod, ObservableList<String> attrMod)
 			throws SQLException, ClassNotFoundException {
-		try {
-			Connection conn = ControllerDB.getInstance().connect();
-			pstmn = conn.prepareStatement(UPDATE_MODELLO);
-
-			for (String a : attrMod) {
-				pstmn.setString(1, a);
-				pstmn.setString(2, mod);
-
-				pstmn.executeUpdate();
-			}
-
-		} catch (SQLException se) {
-			se.printStackTrace();
-		} finally {
-			if (!pstmn.isClosed()) {
-				pstmn.close();
-			}
-		}
+		// prima elimino tutte le attrezzature del modello
+		eliminaModello(mod);
+		// poi aggiungo quelle dell'interfaccia grafica
+		salvaModello(mod, attrMod);
+		return;
 	}
 
 	public void salvaModello(String mod, ObservableList<String> attrMod) throws ClassNotFoundException, SQLException {
