@@ -11,11 +11,8 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// lancia la pagina di login
-		Parent root = FXMLLoader.load(getClass().getResource("/fxml/Modello.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
 		primaryStage.setTitle("login");
-		// primaryStage.setScene(new Scene(root, 600, 400));
-		// dopo eliminare la riga sotto e riprestinare la precedente modificando
-		// il percorso fxml
 		primaryStage.setScene(new Scene(root));
 		primaryStage.setResizable(false);
 		primaryStage.show();

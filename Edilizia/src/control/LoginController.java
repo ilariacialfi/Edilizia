@@ -7,11 +7,11 @@ public class LoginController {
 
 	public static boolean accedi(String id, String pass) throws ClassNotFoundException, SQLException {
 		UtenteDAO utente = UtenteDAO.getInstance();
-		//controlla se esiste l'utente che ha tentato l'accesso
-		if (utente.cercaUtente(id, pass) != null){
+		// controlla se esiste l'utente che ha tentato l'accesso
+		if (utente.cercaUtente(id, pass) != null) {
 			return true;
 		}
-			return false;
+		return false;
 	}
 
 	public static String ruoloUtente(String id) throws SQLException, ClassNotFoundException {
