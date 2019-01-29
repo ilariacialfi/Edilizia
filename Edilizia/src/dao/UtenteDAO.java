@@ -18,7 +18,7 @@ public class UtenteDAO {
 	private PreparedStatement pstmn = null;
 	private Utente utente = null;
 
-	protected UtenteDAO() {
+	private UtenteDAO() {
 	}
 
 	public static UtenteDAO getInstance() {

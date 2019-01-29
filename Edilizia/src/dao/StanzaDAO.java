@@ -25,7 +25,7 @@ public class StanzaDAO {
 	private Statement stmn = null;
 	private Stanza stanza = null;
 
-	protected StanzaDAO() {
+	private StanzaDAO() {
 	}
 
 	public synchronized static final StanzaDAO getInstance() {

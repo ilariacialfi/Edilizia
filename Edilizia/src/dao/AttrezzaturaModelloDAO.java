@@ -21,7 +21,7 @@ public class AttrezzaturaModelloDAO {
 	private ResultSet rs = null;
 	private PreparedStatement pstmn = null;
 
-	protected AttrezzaturaModelloDAO() {
+	private AttrezzaturaModelloDAO() {
 	}
 
 	public synchronized static final AttrezzaturaModelloDAO getInstance() {

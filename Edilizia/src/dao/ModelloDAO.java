@@ -20,7 +20,7 @@ public class ModelloDAO {
 	private Statement stmn = null;
 	private PreparedStatement pstmn = null;
 
-	protected ModelloDAO() {
+	private ModelloDAO() {
 	}
 
 	public synchronized static final ModelloDAO getInstance() {

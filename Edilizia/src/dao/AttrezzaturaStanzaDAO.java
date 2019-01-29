@@ -25,7 +25,7 @@ public class AttrezzaturaStanzaDAO {
 	private ResultSet rs = null;
 	private PreparedStatement pstmn = null;
 
-	protected AttrezzaturaStanzaDAO() {
+	private AttrezzaturaStanzaDAO() {
 	}
 
 	public synchronized static final AttrezzaturaStanzaDAO getInstance() {
