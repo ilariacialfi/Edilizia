@@ -15,16 +15,17 @@ public class ModelloDAO {
 	private static final String CERCA_MODELLO = "SELECT modello FROM attrezzatura_modello WHERE modello = ?";
 
 	private static ModelloDAO instance = null;
+	
 	private ResultSet rs = null;
 	private Statement stmn = null;
 	private PreparedStatement pstmn = null;
 
-	private ModelloDAO() {
+	protected ModelloDAO() {
 	}
 
-	public static ModelloDAO getInstance() {
-		if (instance == null) {
-			return instance = new ModelloDAO();
+	public synchronized static final ModelloDAO getInstance() {
+		if (ModelloDAO.instance == null) {
+			ModelloDAO.instance = new ModelloDAO();
 		}
 		return instance;
 	}

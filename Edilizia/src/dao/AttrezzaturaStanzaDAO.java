@@ -19,17 +19,18 @@ public class AttrezzaturaStanzaDAO {
 	private static final String ELIMINA_STANZA = "DELETE FROM attrezzatura_stanza WHERE stanza = ?";
 	private static final String SALVA_STANZA = "INSERT INTO attrezzatura_stanza (stanza, attrezzatura, quantita) VALUES (?, ?, ?)";
 	private static final String RINOMINA_STANZA = "UPDATE attrezzatura_stanza SET stanza = ? WHERE stanza = ?";
+	
 	private static AttrezzaturaStanzaDAO instance = null;
+	
 	private ResultSet rs = null;
 	private PreparedStatement pstmn = null;
 
-	// SINGLETON
-	private AttrezzaturaStanzaDAO() {
+	protected AttrezzaturaStanzaDAO() {
 	}
 
-	public static AttrezzaturaStanzaDAO getInstance() {
-		if (instance == null) {
-			instance = new AttrezzaturaStanzaDAO();
+	public synchronized static final AttrezzaturaStanzaDAO getInstance() {
+		if (AttrezzaturaStanzaDAO.instance == null) {
+			AttrezzaturaStanzaDAO.instance = new AttrezzaturaStanzaDAO();
 		}
 		return instance;
 	}

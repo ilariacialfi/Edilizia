@@ -14,16 +14,16 @@ public class AttrezzaturaDAO {
 	private static final String ESTRAI_ATTREZZATURA = "SELECT nome FROM attrezzatura ORDER BY nome";
 
 	private static AttrezzaturaDAO instance = null;
+	
 	private Statement stmn = null;
 	private ResultSet rs = null;
 
-	// SINGLETON
-	private AttrezzaturaDAO() {
+	protected AttrezzaturaDAO() {
 	}
 
-	public static AttrezzaturaDAO getInstance() {
-		if (instance == null) {
-			instance = new AttrezzaturaDAO();
+	public synchronized static final AttrezzaturaDAO getInstance() {
+		if (AttrezzaturaDAO.instance == null) {
+			AttrezzaturaDAO.instance = new AttrezzaturaDAO();
 		}
 		return instance;
 	}

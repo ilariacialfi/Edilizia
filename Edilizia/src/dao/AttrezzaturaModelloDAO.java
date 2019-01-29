@@ -17,15 +17,16 @@ public class AttrezzaturaModelloDAO {
 	private static final String RINOMINA_MODELLO = "UPDATE attrezzatura_modello SET modello = ? WHERE modello = ?";
 
 	private static AttrezzaturaModelloDAO instance = null;
+	
 	private ResultSet rs = null;
 	private PreparedStatement pstmn = null;
 
-	private AttrezzaturaModelloDAO() {
+	protected AttrezzaturaModelloDAO() {
 	}
 
-	public static AttrezzaturaModelloDAO getInstance() {
-		if (instance == null) {
-			return instance = new AttrezzaturaModelloDAO();
+	public synchronized static final AttrezzaturaModelloDAO getInstance() {
+		if (AttrezzaturaModelloDAO.instance == null) {
+			AttrezzaturaModelloDAO.instance = new AttrezzaturaModelloDAO();
 		}
 		return instance;
 	}

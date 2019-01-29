@@ -9,25 +9,21 @@ import entity.Utente;
 
 public class UtenteDAO {
 
-	// QUERY (perche final?)
 	private static final String CERCA_UTENTE = "SELECT * FROM utente WHERE id=? and password=?";
 	private static final String CERCA_RUOLO = "SELECT ruolo FROM utente WHERE id = ?";
 
 	private static UtenteDAO instance = null;
+	
 	private ResultSet rs = null;
 	private PreparedStatement pstmn = null;
 	private Utente utente = null;
 
-	// SINGLETON
-	private UtenteDAO() {
+	protected UtenteDAO() {
 	}
 
-	// da definire syncronized il metodo a cui possono accedere le classi
-	// esterne??
 	public static UtenteDAO getInstance() {
-		// se non esiste nessuna istanza la creo
-		if (instance == null) {
-			instance = new UtenteDAO();
+		if (UtenteDAO.instance == null) {
+			UtenteDAO.instance = new UtenteDAO();
 		}
 		return instance;
 	}
