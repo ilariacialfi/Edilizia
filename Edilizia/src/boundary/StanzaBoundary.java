@@ -108,8 +108,8 @@ public class StanzaBoundary {
 
 		//cb_edificio.getItems().addAll("A", "B", "C", "D", "E", "F", "G", "H", "I", "L", "M", "N");
 		cb_edificio.getItems().addAll(StanzaController.fileEdifici());
-		cb_piano.getItems().addAll("T", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
-		cb_tipo.getItems().addAll("aula", "ufficio", "laboratorio", "sala convegni");
+		cb_piano.getItems().addAll(StanzaController.filePiani());
+		cb_tipo.getItems().addAll(StanzaController.fileTipi());
 
 		// nascondo tutte le aree che non possono essere usate prima di
 		// scegliere se creare o modificare un modello

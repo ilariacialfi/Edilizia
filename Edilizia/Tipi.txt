@@ -1,0 +1,4 @@
+aula
+ufficio
+laboratorio
+sala convegni

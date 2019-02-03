@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import dao.AttrezzaturaDAO;
 import dao.AttrezzaturaStanzaDAO;
 import dao.ModelloDAO;
@@ -79,15 +78,42 @@ public class StanzaController {
 	}
 
 	public static ArrayList<String> fileEdifici() throws IOException {
-		FileReader fr = new FileReader("Edifici.txt");
+		String s = new String();
+		File file = new File("Edifici.txt");
+		FileReader fr = new FileReader(file);
 		BufferedReader br = new BufferedReader(fr);
 		ArrayList<String> edifici = new ArrayList<>();
-		while (br.readLine() != null){
-			edifici.add(br.readLine());
-			edifici.add("\n");
+		while ((s = br.readLine())!=null){
+			edifici.add(s);
 		}
 		br.close();
 		return edifici;
+	}
+	
+	public static ArrayList<String> filePiani() throws IOException {
+		String s = new String();
+		File file = new File("Piani.txt");
+		FileReader fr = new FileReader(file);
+		BufferedReader br = new BufferedReader(fr);
+		ArrayList<String> piani = new ArrayList<>();
+		while ((s = br.readLine())!=null){
+			piani.add(s);
+		}
+		br.close();
+		return piani;
+	}
+	
+	public static ArrayList<String> fileTipi() throws IOException {
+		String s = new String();
+		File file = new File("Tipi.txt");
+		FileReader fr = new FileReader(file);
+		BufferedReader br = new BufferedReader(fr);
+		ArrayList<String> tipi = new ArrayList<>();
+		while ((s = br.readLine())!=null){
+			tipi.add(s);
+		}
+		br.close();
+		return tipi;
 	}
 
 }
