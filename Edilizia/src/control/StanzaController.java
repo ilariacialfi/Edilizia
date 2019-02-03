@@ -1,6 +1,12 @@
 package control;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
 import dao.AttrezzaturaDAO;
 import dao.AttrezzaturaStanzaDAO;
 import dao.ModelloDAO;
@@ -70,6 +76,18 @@ public class StanzaController {
 		AttrezzaturaStanzaDAO.getInstance().rinominaStanza(prevName, nextName);
 		StanzaDAO.getInstance().rinominaStanza(prevName, nextName);
 		return;
+	}
+
+	public static ArrayList<String> fileEdifici() throws IOException {
+		FileReader fr = new FileReader("Edifici.txt");
+		BufferedReader br = new BufferedReader(fr);
+		ArrayList<String> edifici = new ArrayList<>();
+		while (br.readLine() != null){
+			edifici.add(br.readLine());
+			edifici.add("\n");
+		}
+		br.close();
+		return edifici;
 	}
 
 }

@@ -93,7 +93,7 @@ public class StanzaBoundary {
 	private Button b_modQuantita;
 
 	@FXML
-	public void initialize() throws ClassNotFoundException, SQLException {
+	public void initialize() throws ClassNotFoundException, SQLException, IOException {
 
 		// Inizializzo le tre ComboBox
 		cb_attr.setItems(StanzaController.estraiAttrezzatura());
@@ -106,7 +106,8 @@ public class StanzaBoundary {
 		cb_stanza.getItems().addAll(items);
 		cb_stanza.getItems().add("Crea nuova stanza");
 
-		cb_edificio.getItems().addAll("A", "B", "C", "D", "E", "F", "G", "H", "I", "L", "M", "N");
+		//cb_edificio.getItems().addAll("A", "B", "C", "D", "E", "F", "G", "H", "I", "L", "M", "N");
+		cb_edificio.getItems().addAll(StanzaController.fileEdifici());
 		cb_piano.getItems().addAll("T", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
 		cb_tipo.getItems().addAll("aula", "ufficio", "laboratorio", "sala convegni");
 
