@@ -14,6 +14,8 @@ import entity.AttrezzaturaStanza;
 import entity.Stanza;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import threads.ThreadAggiornaStanza;
+import threads.ThreadSalvaStanza;
 
 public class StanzaController {
 
@@ -56,18 +58,18 @@ public class StanzaController {
 		AttrezzaturaStanzaDAO.getInstance().eliminaStanza(stanzaSel);
 		return;
 	}
-
+	
 	public static void salvaStanza(String stanza, String edificio, String piano, String tipo,
 			ObservableList<AttrezzaturaStanza> attrSt) throws ClassNotFoundException, SQLException {
-		// faccio salvare la stanza nelle due diverse tabelle del db
-		AttrezzaturaStanzaDAO.getInstance().salvaStanza(stanza, attrSt);
-		StanzaDAO.getInstance().salvaStanza(stanza, edificio, piano, tipo);
+		Thread t = new Thread(new ThreadSalvaStanza(stanza, edificio, piano, tipo, attrSt));
+		t.start();
 		return;
 	}
 
 	public static void aggiornaStanza(String stanza, ObservableList<AttrezzaturaStanza> attrSt)
 			throws ClassNotFoundException, SQLException {
-		AttrezzaturaStanzaDAO.getInstance().aggiornaStanza(stanza, attrSt);
+		Thread t = new Thread(new ThreadAggiornaStanza(stanza, attrSt));
+		t.start();
 		return;
 	}
 
